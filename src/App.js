@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import Form from "./components/Form";
+import Table from "./components/Table";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [category, setCategory] = useState({});
+  const [content, setContent] = useState({});
+  const [searchWord, setSearchWord] = useState("")
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <h1>Text Analysis</h1>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          A program used to assess body of text and cargorise it based on
+          categories set.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
+      <Form
+        category={category}
+        content={content}
+        setCategory={setCategory}
+        setContent={setContent}
+        searchWord={searchWord}
+      />
+      <Table content={content} category={category} />
     </div>
   );
-}
+};
 
 export default App;
