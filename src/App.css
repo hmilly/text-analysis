@@ -6,6 +6,7 @@
 
 .App {
   display: grid;
+  height: 100vh;
   grid-template-columns: 100vw;
   grid-template-rows: 200px 400px 1fr;
 }

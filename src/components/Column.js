@@ -1,13 +1,10 @@
-import { useEffect } from "react";
 import Row from "./Row";
 
-const Column = ({ category, content, searchWord }) => {
+const Column = ({ category, content }) => {
   return (
     <>
       <h2>{category}</h2>
-      {content.includes((c) => (
-        <Row content={c} />
-      ))}
+       <Row content={content} />
     </>
   );
 };

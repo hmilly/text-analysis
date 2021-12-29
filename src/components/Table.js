@@ -1,11 +1,11 @@
 import Column from "./Column";
 
-const Table = ({ category, content, searchWord }) => {
+const Table = ({ category, content }) => {
   // create a column for each category
 
   return (
     <div className="Table">
-      {content.map((colName) => (
+      {category.map((colName) => (
         <Column category={colName} content={content} />
       ))}
     </div>
