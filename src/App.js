@@ -25,13 +25,15 @@ const App = () => {
 
   const findTxt = (e) => {
     e.preventDefault();
-    const matched = obj.find((o) => o.category.match(text));
+    obj.find((o) => {
+      if (text.includes(o.category)) {
+        setObj([...obj, { ...o, content: [...o.content, Text] }]);
+      } else {
+        setErr("text not found.");
+      }
+    });
 
-    console.log(matched);
-
-    matched
-      ? setObj([...obj, { ...matched, content: [...matched.content, text] }])
-      : setErr("text not found.");
+    console.log(obj);
   };
 
   return (

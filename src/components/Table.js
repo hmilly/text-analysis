@@ -2,7 +2,6 @@ import Column from "./Column";
 
 const Table = ({ obj }) => {
   // create a column for each category
-  console.log(obj);
   return (
     <div className="Table">
       {obj.length > 1 &&
