@@ -1,15 +1,38 @@
 import { useState } from "react";
-import Input from "./components/Input";
 import Table from "./components/Table";
 import "./App.css";
 
 const App = () => {
-  const [category, setCategory] = useState({id: 1, text: "uncatagorised"});
-  const [content, setContent] = useState({});
-  const [searchWord, setSearchWord] = useState("");
+  const [obj, setObj] = useState([
+    { category: "Undefined", content: ["hello", "nice to meet you"] },
+  ]);
+
+  const [category, setCategory] = useState("");
   const [text, setText] = useState("");
 
-  
+  const [err, setErr] = useState("");
+
+  const findCat = (e) => {
+    e.preventDefault();
+    const catExists = obj.find(
+      (c) => c.category.toLowerCase() === category.toLowerCase()
+    );
+
+    !catExists
+      ? setObj([...obj, { category: category, content: [] }])
+      : setErr("Category all ready set");
+  };
+
+  const findTxt = (e) => {
+    e.preventDefault();
+    const matched = obj.find((o) => o.category.match(text));
+
+    console.log(matched);
+
+    matched
+      ? setObj([...obj, { ...matched, content: [...matched.content, text] }])
+      : setErr("text not found.");
+  };
 
   return (
     <div className="App">
@@ -19,33 +42,25 @@ const App = () => {
           A program used to assess body of text and cargorise it based on
           categories set.
         </p>
+        <p>{err}</p>
       </header>
       <form>
-        <Input
-          item={category}
-          setItem={setCategory}
-          placeholder={"Category.."}
-        />
+        <div>
+          <input
+            placeholder="Input a category..."
+            onKeyUp={(e) => setCategory(e.target.value)}
+          />
+          <button onClick={(e) => findCat(e)}>GO</button>
+        </div>
         <div>
           <textarea
             placeholder="Input some text to be assesed"
-            onKeyUp={(e) =>
-              setText({
-                ...content,
-                id: content.length + 1,
-                data: text
-              })
-            }
+            onKeyUp={(e) => setText(e.target.value)}
           />
-          <button onClick={(e) => setContent(text)}>GO</button>
+          <button onClick={(e) => findTxt(e)}>GO</button>
         </div>
-        <Input
-          item={searchWord}
-          setItem={setSearchWord}
-          placeholder={"Search word.."}
-        />
       </form>
-      <Table content={content} category={category} />
+      <Table obj={obj} />
     </div>
   );
 };

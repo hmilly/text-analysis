@@ -1,28 +1,17 @@
-import { useState } from "react";
+// import { useState } from "react";
 
-const Input = ({ item, setItem, placeholder }) => {
+// const Input = ({ arr, setArr, placeholder, findDuplicate }) => {
+//   const [input, setInput] = useState("");
 
-  
+//   return (
+//     <div>
+//       <input
+//         placeholder={placeholder}
+//         onKeyUp={(e) => setInput(e.target.value)}
+//       />
+//       <button onClick={(e) => findDuplicate(e, arr, setArr, input)}>GO</button>
+//     </div>
+//   );
+// };
 
-
-  const [input, setInput] = useState("");
-
-  return (
-    <div>
-      <input placeholder={placeholder} onKeyUp={(e) => setInput(e.value)} />
-      <button
-        onClick={(e) =>
-          setItem({
-            ...item,
-            id: item.length + 1,
-            data: input,
-          })
-        }
-      >
-        GO
-      </button>
-    </div>
-  );
-};
-
-export default Input;
+// export default Input;
