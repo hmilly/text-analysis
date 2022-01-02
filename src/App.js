@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Table from "./components/Table";
-import "./App.css";
+import "./App.scss";
 
 const App = () => {
   const [obj, setObj] = useState([
@@ -21,46 +21,46 @@ const App = () => {
     !catExists
       ? setObj([...obj, { category: category, content: [] }])
       : setErr("Category all ready set");
+    setCategory("");
   };
 
   const findTxt = (e) => {
-    e.preventDefault();
-    obj.find((o) => {
-      if (text.includes(o.category)) {
-        setObj([...obj, { ...o, content: [...o.content, Text] }]);
-      } else {
-        setErr("text not found.");
-      }
-    });
 
-    console.log(obj);
+    e.preventDefault();
+    let arr = obj;
+
+    arr.map((o) => {
+      if (text.toLowerCase().includes(o.category.toLowerCase())) {
+        o.content.push(text);
+      } 
+    });
+    setObj(arr);
+    setText("");
   };
 
   return (
     <div className="App">
-      <header className="App-header">
+      <header>
         <h1>Text Analysis</h1>
         <p>
           A program used to assess body of text and cargorise it based on
           categories set.
         </p>
-        <p>{err}</p>
+        <h2 className="error">{err}</h2>
       </header>
       <form>
-        <div>
-          <input
-            placeholder="Input a category..."
-            onKeyUp={(e) => setCategory(e.target.value)}
-          />
-          <button onClick={(e) => findCat(e)}>GO</button>
-        </div>
-        <div>
-          <textarea
-            placeholder="Input some text to be assesed"
-            onKeyUp={(e) => setText(e.target.value)}
-          />
-          <button onClick={(e) => findTxt(e)}>GO</button>
-        </div>
+        <input
+          placeholder="Input a category..."
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        />
+        <button onClick={(e) => findCat(e)}>GO</button>
+        <textarea
+          placeholder="Input some text to be assesed"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+        <button onClick={(e) => findTxt(e)}>GO</button>
       </form>
       <Table obj={obj} />
     </div>
