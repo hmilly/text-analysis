@@ -1,0 +1,83 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+  grid-template-columns: 1fr;
+  grid-template-rows: 130px 300px auto;
+  justify-items: center;
+  gap: 10px;
+  header {
+    text-align: center;
+    width: 100%;
+    p {
+      margin: 10px;
+    }
+    .error {
+      color: red;
+    }
+  }
+  form {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 0.8fr 70px;
+    grid-template-rows: 50px auto;
+    gap: 10px;
+    justify-content: center;
+    align-content: center;
+    align-items: end;
+
+    input {
+      font-size: 18px;
+      padding: 5px;
+      height: 100%;
+    }
+    textarea {
+      font-size: 18px;
+      padding: 5px;
+      height: 200px;
+    }
+
+    button {
+      cursor: pointer;
+      color: blue;
+      font-weight: bolder;
+      font-size: larger;
+      height: 50px;
+    }
+  }
+
+  .Table {
+    display: grid;
+    width: 95%;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+    justify-content: center;
+    align-content: start;
+    overflow-y: scroll;
+    .col {
+      width: 95%;
+      h2 {
+        text-align: center;
+      }
+      section {
+        display: grid;
+        grid-template-columns: 0.8fr 0.2fr;
+        grid-template-rows: auto;
+        gap: 10px;
+        border: solid 1px black;
+        padding: 5px 10px;
+        p:nth-child(2) {
+          border-left: solid 1px black;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
