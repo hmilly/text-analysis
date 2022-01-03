@@ -4,7 +4,7 @@ const Table = ({ obj }) => {
   // create a column for each category
   return (
     <div className="Table">
-      {obj.length > 1 &&
+      {obj.length > 0 &&
         obj.map((c) => <Column category={c.category} content={c.content} />)}
     </div>
   );

@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Table from "./components/Table";
 import "./App.scss";
 
 const App = () => {
-  const [obj, setObj] = useState([
-    { category: "Undefined", content: ["hello", "nice to meet you"] },
-  ]);
-
+  const [obj, setObj] = useState([]);
   const [category, setCategory] = useState("");
   const [text, setText] = useState("");
-
   const [err, setErr] = useState("");
+
+  useEffect(() => {
+    return setTimeout(() => {
+      setErr("");
+    }, 3000);
+  }, [err]);
 
   const findCat = (e) => {
     e.preventDefault();
@@ -18,24 +20,35 @@ const App = () => {
       (c) => c.category.toLowerCase() === category.toLowerCase()
     );
 
-    !catExists
-      ? setObj([...obj, { category: category, content: [] }])
-      : setErr("Category all ready set");
+    if (category === "") setErr("please enter a category");
+    else
+      !catExists
+        ? setObj([...obj, { category: category, content: [] }])
+        : setErr("Category all ready set");
     setCategory("");
   };
 
   const findTxt = (e) => {
-
     e.preventDefault();
-    let arr = obj;
 
-    arr.map((o) => {
-      if (text.toLowerCase().includes(o.category.toLowerCase())) {
-        o.content.push(text);
-      } 
-    });
-    setObj(arr);
-    setText("");
+    const foundObj = obj.find((o) =>
+      text.toLowerCase().includes(o.category.toLowerCase())
+    );
+    const i = obj.indexOf(foundObj);
+
+    if (text === "") setErr("Please enter some text");
+    else if (!foundObj) setErr("No matching category found");
+    else
+      foundObj.content.map((arr) =>
+        arr === text ? setErr("Text all ready input") : arr.push(text)
+      );
+
+    // else
+    // arr.map((o) => {
+    //   if (text.toLowerCase().includes(o.category.toLowerCase())) {
+    //     o.content.push(text);
+    //   }
+    // })
   };
 
   return (

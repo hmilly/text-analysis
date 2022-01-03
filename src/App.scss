@@ -2,19 +2,25 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: Verdana, Tahoma, sans-serif;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
 }
 
 .App {
   display: grid;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   grid-template-columns: 1fr;
   grid-template-rows: 130px 300px auto;
-  justify-items: center;
   gap: 10px;
+  justify-items: center;
+  position: fixed;
   header {
     text-align: center;
-    width: 100%;
     p {
       margin: 10px;
     }
@@ -24,45 +30,40 @@
   }
   form {
     display: grid;
-    width: 100%;
-    grid-template-columns: 0.8fr 70px;
-    grid-template-rows: 50px auto;
+    grid-template-columns: minmax(auto, 900px) 70px;
+    grid-template-rows: 50px 1fr;
     gap: 10px;
-    justify-content: center;
-    align-content: center;
-    align-items: end;
+    margin: 20px;
 
-    input {
+    textarea, input {
       font-size: 18px;
       padding: 5px;
-      height: 100%;
+      resize: none;
     }
-    textarea {
-      font-size: 18px;
-      padding: 5px;
-      height: 200px;
-    }
-
     button {
       cursor: pointer;
-      color: blue;
-      font-weight: bolder;
-      font-size: larger;
+      color: black;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 22px;
+      text-shadow: 2px 2px rgb(163, 164, 165);
       height: 50px;
+      align-self: end;
+    }
+    button:hover{
+      background-color: rgba(173, 216, 230, 0.575);
+      font-size: 24px;
     }
   }
 
   .Table {
     display: grid;
-    width: 95%;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(auto, 1200px);
     grid-template-rows: auto;
+    margin: 0 15px;
     gap: 10px;
-    justify-content: center;
-    align-content: start;
-    overflow-y: scroll;
     .col {
-      width: 95%;
+
       h2 {
         text-align: center;
       }
