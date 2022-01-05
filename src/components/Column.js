@@ -12,11 +12,11 @@ const Column = ({ category, contents }) => {
   }, [contents]);
 
   return (
-    <div className="col">
-      <h2>{category}</h2>
+    <ul className="col">
+      <h2>{category.charAt(0).toUpperCase() + category.slice(1)}</h2>
       {contentsArr.length > 0 &&
         contentsArr.map((content) => <Row content={content} />)}
-    </div>
+    </ul>
   );
 };
 

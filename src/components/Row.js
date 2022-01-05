@@ -1,9 +1,9 @@
 const Row = ({ content }) => {
   return (
-    <section>
+    <li>
       <p>{content}</p>
       <p>{`Words used: ${content && content.split(" ").length}`}</p>
-    </section>
+    </li>
   );
 };
 

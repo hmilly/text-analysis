@@ -24,7 +24,7 @@ const App = () => {
     if (category === "") setErr("Please enter a category");
     else
       !catExists
-        ? setCategories([...categories, category])
+        ? setCategories([...categories, category.trim()])
         : setErr("Category all ready set");
     setCategory("");
   };
@@ -36,7 +36,7 @@ const App = () => {
     else
       !contExists
         ? setContentsArr([...contentsArr, content])
-        : setErr("contentsArr all ready added");
+        : setErr("contents all ready added");
     setContent("");
   };
 
@@ -46,7 +46,7 @@ const App = () => {
         <h1>Text Analysis</h1>
         <p>
           A program used to assess body of text and cargorise it based on
-          categories set.
+          categories set, with word count.
         </p>
         <h2 className="error">{err}</h2>
       </header>
