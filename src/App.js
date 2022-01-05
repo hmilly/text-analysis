@@ -3,9 +3,11 @@ import Table from "./components/Table";
 import "./App.scss";
 
 const App = () => {
-  const [obj, setObj] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [contentsArr, setContentsArr] = useState([]);
+
   const [category, setCategory] = useState("");
-  const [text, setText] = useState("");
+  const [content, setContent] = useState("");
   const [err, setErr] = useState("");
 
   useEffect(() => {
@@ -16,47 +18,34 @@ const App = () => {
 
   const findCat = (e) => {
     e.preventDefault();
-    const catExists = obj.find(
-      (c) => c.category.toLowerCase() === category.toLowerCase()
+    const catExists = categories.find(
+      (c) => c.toLowerCase() === category.toLowerCase()
     );
-
-    if (category === "") setErr("please enter a category");
+    if (category === "") setErr("Please enter a category");
     else
       !catExists
-        ? setObj([...obj, { category: category, content: [] }])
+        ? setCategories([...categories, category])
         : setErr("Category all ready set");
     setCategory("");
   };
 
-  const findTxt = (e) => {
+  const findContent = (e) => {
     e.preventDefault();
-
-    const foundObj = obj.find((o) =>
-      text.toLowerCase().includes(o.category.toLowerCase())
-    );
-    const i = obj.indexOf(foundObj);
-
-    if (text === "") setErr("Please enter some text");
-    else if (!foundObj) setErr("No matching category found");
+    const contExists = contentsArr.find((c) => c === content);
+    if (content === "") setErr("Please enter some contents");
     else
-      foundObj.content.map((arr) =>
-        arr === text ? setErr("Text all ready input") : arr.push(text)
-      );
-
-    // else
-    // arr.map((o) => {
-    //   if (text.toLowerCase().includes(o.category.toLowerCase())) {
-    //     o.content.push(text);
-    //   }
-    // })
+      !contExists
+        ? setContentsArr([...contentsArr, content])
+        : setErr("contentsArr all ready added");
+    setContent("");
   };
 
   return (
     <div className="App">
       <header>
-        <h1>Text Analysis</h1>
+        <h1>contents Analysis</h1>
         <p>
-          A program used to assess body of text and cargorise it based on
+          A program used to assess body of contents and cargorise it based on
           categories set.
         </p>
         <h2 className="error">{err}</h2>
@@ -69,13 +58,13 @@ const App = () => {
         />
         <button onClick={(e) => findCat(e)}>GO</button>
         <textarea
-          placeholder="Input some text to be assesed"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
+          placeholder="Input some contents to be assesed"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         />
-        <button onClick={(e) => findTxt(e)}>GO</button>
+        <button onClick={(e) => findContent(e)}>GO</button>
       </form>
-      <Table obj={obj} />
+      <Table categories={categories} contents={contentsArr} />
     </div>
   );
 };

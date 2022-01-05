@@ -1,11 +1,10 @@
 import Column from "./Column";
 
-const Table = ({ obj }) => {
-  // create a column for each category
+const Table = ({ categories, contents }) => {
   return (
     <div className="Table">
-      {obj.length > 0 &&
-        obj.map((c) => <Column category={c.category} content={c.content} />)}
+      {categories.length > 0 &&
+        categories.map((category) => <Column category={category} contents={contents} />)}
     </div>
   );
 };
