@@ -43,9 +43,9 @@ const App = () => {
   return (
     <div className="App">
       <header>
-        <h1>contents Analysis</h1>
+        <h1>Text Analysis</h1>
         <p>
-          A program used to assess body of contents and cargorise it based on
+          A program used to assess body of text and cargorise it based on
           categories set.
         </p>
         <h2 className="error">{err}</h2>
