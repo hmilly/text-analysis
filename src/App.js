@@ -3,11 +3,11 @@ import Table from "./components/Table";
 import "./App.scss";
 
 const App = () => {
-  const [categories, setCategories] = useState([]);
-  const [contentsArr, setContentsArr] = useState([]);
+  const [excludedWords, setExcludedWords] = useState(["a", "the", "and", "an"]);
+  const [contents, setContents] = useState("");
 
-  const [category, setCategory] = useState("");
-  const [content, setContent] = useState("");
+  const [word, setWord] = useState("");
+  const [text, setText] = useState("");
   const [err, setErr] = useState("");
 
   useEffect(() => {
@@ -16,55 +16,50 @@ const App = () => {
     }, 3000);
   }, [err]);
 
-  const findCat = (e) => {
+  const addWords = (e) => {
     e.preventDefault();
-    const catExists = categories.find(
-      (c) => c.toLowerCase() === category.toLowerCase()
+    const wordExists = excludedWords.find(
+      (c) => c.toLowerCase() === word.toLowerCase()
     );
-    if (category === "") setErr("Please enter a category");
+
+    if (word === "") setErr("Please enter a word");
     else
-      !catExists
-        ? setCategories([...categories, category.trim()])
-        : setErr("Category all ready set");
-    setCategory("");
+      !wordExists
+        ? setExcludedWords([...excludedWords, word.trim().toLowerCase()])
+        : setErr("Word all ready added");
+    setWord("");
   };
 
-  const findContent = (e) => {
+  const assessText = (e) => {
     e.preventDefault();
-    const contExists = contentsArr.find((c) => c === content);
-    if (content === "") setErr("Please enter some contents");
-    else
-      !contExists
-        ? setContentsArr([...contentsArr, content])
-        : setErr("contents all ready added");
-    setContent("");
+    if (text === "") setErr("Please enter some text");
+    else text !== contents ? setContents(text) : setErr("Text all ready added");
+    setText("");
   };
 
   return (
     <div className="App">
       <header>
         <h1>Text Analysis</h1>
-        <p>
-          A program used to assess body of text and cargorise it based on
-          categories set, with word count.
-        </p>
+        <p>An app for assessing a body of text.</p>
         <h2 className="error">{err}</h2>
       </header>
       <form>
-        <input
-          placeholder="Input a category..."
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        />
-        <button onClick={(e) => findCat(e)}>GO</button>
         <textarea
-          placeholder="Input some contents to be assesed"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
+          placeholder="Input text to be assesed.."
+          value={text}
+          onChange={(e) => setText(e.target.value)}
         />
-        <button onClick={(e) => findContent(e)}>GO</button>
+        <button onClick={(e) => assessText(e)}>GO</button>
+        <input
+          type="text"
+          placeholder="Words to be excluded from the search.."
+          value={word}
+          onChange={(e) => setWord(e.target.value.replace(/[^a-zA-Z]/gi, ""))}
+        />
+        <button onClick={(e) => addWords(e)}>GO</button>
       </form>
-      <Table categories={categories} contents={contentsArr} />
+      <Table excludedWords={excludedWords} contents={contents} />
     </div>
   );
 };
