@@ -4,6 +4,7 @@ import "./App.scss";
 
 const App = () => {
   const [excludedWords, setExcludedWords] = useState(["a", "the", "and", "an"]);
+  const [topWords, setTopWords] = useState([["the", 1]]);
   const [contents, setContents] = useState("");
 
   const [word, setWord] = useState("");
@@ -16,7 +17,7 @@ const App = () => {
     }, 3000);
   }, [err]);
 
-  const addWords = (e) => {
+  const addExcludedWords = (e) => {
     e.preventDefault();
     const wordExists = excludedWords.find(
       (c) => c.toLowerCase() === word.toLowerCase()
@@ -30,6 +31,15 @@ const App = () => {
     setWord("");
   };
 
+  // you are here hun
+  const addTopWords = (e) => {
+    e.preventDefault();
+
+    // set tally for top 5 words used !
+    contents;
+  };
+  // you are here hun
+
   const assessText = (e) => {
     e.preventDefault();
     if (text === "") setErr("Please enter some text");
@@ -41,25 +51,37 @@ const App = () => {
     <div className="App">
       <header>
         <h1>Text Analysis</h1>
-        <p>An app for assessing a body of text.</p>
-        <h2 className="error">{err}</h2>
+        <p className="error">{err}</p>
       </header>
       <form>
         <textarea
-          placeholder="Input text to be assesed.."
+          placeholder="Input main text.."
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-        <button onClick={(e) => assessText(e)}>GO</button>
-        <input
-          type="text"
-          placeholder="Words to be excluded from the search.."
-          value={word}
-          onChange={(e) => setWord(e.target.value.replace(/[^a-zA-Z]/gi, ""))}
-        />
-        <button onClick={(e) => addWords(e)}>GO</button>
+        <button onClick={(e) => assessText(e)}>Go</button>
+        <div className="inputs">
+          <input
+            type="text"
+            placeholder="Exclude.."
+            value={word}
+            onChange={(e) => setWord(e.target.value.replace(/[^a-zA-Z]/gi, ""))}
+          />
+          <button onClick={(e) => addExcludedWords(e)}>Add</button>
+          <input
+            type="text"
+            placeholder="Find.."
+            value={word}
+            onChange={(e) => setWord(e.target.value.replace(/[^a-zA-Z]/gi, ""))}
+          />
+          <button onClick={(e) => addTopWords(e)}>Find</button>
+        </div>
       </form>
-      <Table excludedWords={excludedWords} contents={contents} />
+      <Table
+        excludedWords={excludedWords}
+        contents={contents}
+        topWords={topWords}
+      />
     </div>
   );
 };

@@ -1,3 +1,15 @@
+@mixin scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 0;
+    padding: 2px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgb(182, 182, 182);
+    border-radius: 10px;
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,10 +24,10 @@ body {
 .App {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 130px 300px 1fr;
+  grid-template-rows: 80px 200px 1fr;
   gap: 10px;
   height: 100vh;
-  justify-items: center;
+  min-width: 320px;
   background: linear-gradient(
     315deg,
     #1f005c,
@@ -32,22 +44,34 @@ body {
     #ffb56b
   );
   header {
-    text-align: center;
-    p {
-      margin: 10px;
-    }
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    justify-items: center;
     .error {
       color: white;
-      text-shadow: 2px 2px crimson;
-      background-color: rgba(165, 146, 36, 0.801);
+      text-shadow: 2px 2px rgba(255, 150, 150, 0.713);
+      transition: 2s;
     }
   }
   form {
     display: grid;
-    grid-template-columns: minmax(auto, 900px) 70px;
-    grid-template-rows: 1fr 50px;
+    grid-template-columns: minmax(200px, 600px) 50px;
+    grid-template-rows: auto;
     gap: 10px;
     margin: 20px;
+    justify-content: center;
+    textarea {
+      overflow-x: scroll;
+      @include scrollbar;
+    }
+    .inputs {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(100px, 270px) 55px);
+      grid-template-rows: 40px;
+      gap: 5px;
+    }
     textarea,
     input {
       font-size: 18px;
@@ -55,7 +79,6 @@ body {
       resize: none;
       background-color: rgba(0, 0, 0, 0.37);
       color: white;
-      text-shadow: 3px 2px #363535;
       border-radius: 4px;
       border: solid black 1px;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -65,59 +88,65 @@ body {
     }
     button {
       cursor: pointer;
-      color: #75084b;
+      color: #410128;
       background-color: #f8942f;
-      font-weight: bold;
-      font-size: 22px;
+      font-weight: bolder;
+      font-size: 18px;
       border-radius: 5px;
-      height: 50px;
+      height: 40px;
       box-shadow: 0 0 30px rgba(58, 3, 53, 0.596);
-      text-shadow: 2px 2px #e060af;
-      transition: 0.3s;
+      transition: 0.1s;
+      align-self: start;
       &:hover {
         color: black;
-        font-size: 24px;
+        font-size: 20px;
         box-shadow: 0 0 30px rgba(58, 3, 19, 0.986);
       }
       &:active {
-        font-size: 20px;
+        font-size: 18px;
         box-shadow: 0 0 30px rgba(156, 104, 6, 0.986);
       }
     }
   }
 
-  div {
+  .table {
     display: grid;
-    grid-template-columns: minmax(300px, 1200px) 150px;
+    grid-template-columns: minmax(auto, 1200px) 120px;
     grid-auto-rows: 1fr;
-    overflow: scroll;
     gap: 10px;
     background-color: rgba(0, 0, 0, 0.116);
     color: white;
-    text-shadow: 3px 2px #363535;
     border-radius: 4px;
-
-    &::-webkit-scrollbar {
-      width: 6px;
-      height: 0;
-      padding: 2px;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: rgb(182, 182, 182);
-      border-radius: 10px;
-    }
-    .contents{
-      word-break: break-all;
-    }
-    section{
-      h4, p, ul{
-        text-align: center;
-        padding: 5px 0;
-      }
-      li{
-        display: inline;
+    .contents {
+      overflow: scroll;
+      @include scrollbar;
+      p {
+        word-break: break-all;
       }
     }
 
+    .sideBar {
+      display: grid;
+      grid-template-rows: 80px 80px auto auto;
+      grid-auto-columns: 1fr;
+      section {
+        list-style-type: none;
+        border: solid 1px rgba(128, 128, 128, 0.623);
+        p,
+        ul {
+          padding: 8px;
+          li {
+            display: inline;
+          }
+          &:nth-child(odd) {
+            background-color: rgba(128, 128, 128, 0.623);
+          }
+        }
+        ul {
+          overflow: scroll;
+          @include scrollbar;
+        }
+      }
+    }
   }
 }
