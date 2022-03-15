@@ -24,7 +24,7 @@ body {
 .App {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 80px 200px 1fr;
+  grid-template-rows: 80px 80px 1fr;
   gap: 10px;
   height: 100vh;
   min-width: 320px;
@@ -55,25 +55,19 @@ body {
       transition: 2s;
     }
   }
-  form {
+
+  form.inputs {
     display: grid;
-    grid-template-columns: minmax(200px, 600px) 50px;
-    grid-template-rows: auto;
-    gap: 10px;
-    margin: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 270px) 55px);
+    grid-template-rows: 40px;
+    gap: 5px;
     justify-content: center;
+  }
+
+  //both form stylings & text area & inputs & buttons
+  form {
+    input,
     textarea {
-      overflow-x: scroll;
-      @include scrollbar;
-    }
-    .inputs {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(100px, 270px) 55px);
-      grid-template-rows: 40px;
-      gap: 5px;
-    }
-    textarea,
-    input {
       font-size: 18px;
       padding: 5px;
       resize: none;
@@ -109,19 +103,31 @@ body {
     }
   }
 
-  .table {
+  div.table {
     display: grid;
     grid-template-columns: minmax(auto, 1200px) 120px;
-    grid-auto-rows: 1fr;
-    gap: 10px;
+    grid-template-rows: 1fr;
     background-color: rgba(0, 0, 0, 0.116);
     color: white;
     border-radius: 4px;
-    .contents {
-      overflow: scroll;
-      @include scrollbar;
-      p {
-        word-break: break-all;
+
+    form.text {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 60px;
+      gap: 20px;
+      padding: 5px;
+      align-content: center;
+      grid-template-areas:
+        "textarea textarea"
+        "button button1";
+      textarea {
+        grid-area: textarea;
+        overflow: scroll;
+        @include scrollbar;
+      }
+      button:last-child {
+        grid-area: button1;
       }
     }
 
