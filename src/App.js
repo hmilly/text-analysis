@@ -5,7 +5,7 @@ import Input from "./components/Input";
 
 const App = () => {
   const [contents, setContents] = useState("");
-  const [numWordFound, setNumWordFound] = useState("");
+  const [numWordFound, setNumWordFound] = useState(0);
   const [findWord, setFindWord] = useState("");
   const [excludedWords, setExcludedWords] = useState(["a", "the", "and", "an"]);
   const [exWord, setExWord] = useState("");

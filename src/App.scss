@@ -131,26 +131,34 @@ body {
       }
     }
 
-    .sideBar {
+    aside {
       display: grid;
       grid-template-rows: 80px 80px auto auto;
       grid-auto-columns: 1fr;
       section {
         list-style-type: none;
-        border: solid 1px rgba(128, 128, 128, 0.623);
-        p,
+        h4 {
+          background-color: rgba(128, 128, 128, 0.623);
+        }
         ul {
-          padding: 8px;
+          padding: 5px 0;
+          overflow: scroll;
+          @include scrollbar;
+          p {
+            display: inline;
+            padding: 3px ;
+          }
           li {
             display: inline;
           }
-          &:nth-child(odd) {
-            background-color: rgba(128, 128, 128, 0.623);
-          }
         }
-        ul {
-          overflow: scroll;
-          @include scrollbar;
+        .topwords{
+          li{
+            display: block;
+            &:nth-child(odd){
+              background-color: rgba(9, 43, 87, 0.548);
+            }
+          }
         }
       }
     }
