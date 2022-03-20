@@ -110,8 +110,9 @@ body {
     background-color: rgba(0, 0, 0, 0.116);
     color: white;
     border-radius: 4px;
+    justify-content: center;
 
-    form.text {
+    form.text-area {
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 60px;
@@ -154,7 +155,10 @@ body {
         }
         .topwords{
           li{
-            display: block;
+            display: grid;
+            grid-template-columns: 1fr 20px;
+            grid-template-rows: 1fr;
+
             &:nth-child(odd){
               background-color: rgba(9, 43, 87, 0.548);
             }

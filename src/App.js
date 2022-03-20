@@ -4,12 +4,14 @@ import Table from "./components/Table";
 import Input from "./components/Input";
 
 const App = () => {
+  //form controls
   const [contents, setContents] = useState("");
-  const [numWordFound, setNumWordFound] = useState(0);
-  const [findWord, setFindWord] = useState("");
-  const [excludedWords, setExcludedWords] = useState(["a", "the", "and", "an"]);
-  const [exWord, setExWord] = useState("");
+  const [wordToExclude, setWordToExclude] = useState("");
+  const [wordToFind, setWordToFind] = useState("");
+
   const [err, setErr] = useState("");
+  const [excludedWords, setExcludedWords] = useState(["a", "the", "and", "an"]);
+  const [wordFoundNo, setWordFoundNo] = useState(0);
 
   useEffect(() => {
     return setTimeout(() => {
@@ -20,29 +22,32 @@ const App = () => {
   const addToExclusions = (e) => {
     e.preventDefault();
     const wordExists = excludedWords.find(
-      (c) => c.toLowerCase() === exWord.toLowerCase()
+      (c) => c.toLowerCase() === wordToExclude.toLowerCase()
     );
-    if (exWord === "") setErr("Please enter a word");
+    if (wordToExclude === "") setErr("Please enter a word");
     else
       !wordExists
-        ? setExcludedWords([...excludedWords, exWord.trim().toLowerCase()])
+        ? setExcludedWords([
+            ...excludedWords,
+            wordToExclude.trim().toLowerCase(),
+          ])
         : setErr("Word all ready added");
-    setExWord("");
+    setWordToExclude("");
   };
 
   const searchForWord = (e) => {
     e.preventDefault();
-    if (contents === "") setErr("Please enter some content");
-    else if (findWord === "") setErr("Please enter a word");
+    if (contents.length <= 15) setErr("Please enter more text to assess");
+    else if (wordToFind === "") setErr("Please enter a word");
     else {
-      const n = contents.split(" ").reduce((acc, current) => {
-        const c = current
+      const n = contents.split(" ").reduce((arr, current) => {
+        const curr = current
           .replace(/[^a-zA-Z]/gi, "")
           .trim()
           .toLowerCase();
-        return findWord === c ? (acc += 1) : acc;
+        return wordToFind === curr ? (arr += 1) : arr;
       }, 0);
-      setNumWordFound(n);
+      setWordFoundNo(n);
     }
   };
 
@@ -55,27 +60,27 @@ const App = () => {
       <form className="inputs">
         {contents.length >= 15 && (
           <Input
-            phTxt="Exclude word.."
-            val={exWord}
-            changeFn={setExWord}
+            placehold="Exclude word.."
+            val={wordToExclude}
+            changeFn={setWordToExclude}
             clickFn={addToExclusions}
-            btn="Add"
+            btnName="Add"
           />
         )}
         {contents.length >= 15 && (
           <Input
-            phTxt="Find word.."
-            val={findWord}
-            changeFn={setFindWord}
+            placehold="Find word.."
+            val={wordToFind}
+            changeFn={setWordToFind}
             clickFn={searchForWord}
-            btn="Find"
+            btnName="Find"
           />
         )}
       </form>
       <Table
         excludedWords={excludedWords}
-        numWordFound={numWordFound}
-        findWord={findWord}
+        wordFoundNo={wordFoundNo}
+        wordToFind={wordToFind}
         contents={contents}
         setContents={setContents}
       />
