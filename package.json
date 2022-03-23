@@ -1,6 +1,6 @@
 {
   "homepage": "http://hmilly.github.io/text-analysis",
-  "name": "search-find",
+  "name": "text-analysis",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

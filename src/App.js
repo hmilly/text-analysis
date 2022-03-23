@@ -11,7 +11,7 @@ const App = () => {
 
   const [err, setErr] = useState("");
   const [excludedWords, setExcludedWords] = useState(["a", "the", "and", "an"]);
-  const [wordFoundNo, setWordFoundNo] = useState(0);
+  const [wordFoundNo, setWordFoundNo] = useState({ word: "", num: 0 });
 
   useEffect(() => {
     return setTimeout(() => {
@@ -47,7 +47,7 @@ const App = () => {
           .toLowerCase();
         return wordToFind === curr ? (arr += 1) : arr;
       }, 0);
-      setWordFoundNo(n);
+      setWordFoundNo({ word: wordToFind, num: n });
     }
   };
 
@@ -64,7 +64,7 @@ const App = () => {
             val={wordToExclude}
             changeFn={setWordToExclude}
             clickFn={addToExclusions}
-            btnName="Add"
+            btnName="Remove"
           />
         )}
         {contents.length >= 15 && (
@@ -79,8 +79,8 @@ const App = () => {
       </form>
       <Table
         excludedWords={excludedWords}
+        setExcludedWords={setExcludedWords}
         wordFoundNo={wordFoundNo}
-        wordToFind={wordToFind}
         contents={contents}
         setContents={setContents}
       />

@@ -27,7 +27,7 @@ body {
   grid-template-rows: 80px 80px 1fr;
   gap: 10px;
   height: 100vh;
-  min-width: 320px;
+  min-width: 350px;
   background: linear-gradient(
     315deg,
     #1f005c,
@@ -58,7 +58,7 @@ body {
 
   form.inputs {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 270px) 55px);
+    grid-template-columns: repeat(auto-fit, minmax(auto, 250px) 95px);
     grid-template-rows: 40px;
     gap: 5px;
     justify-content: center;
@@ -105,9 +105,8 @@ body {
 
   div.table {
     display: grid;
-    grid-template-columns: minmax(auto, 1200px) 120px;
+    grid-template-columns: minmax(auto, 1200px) 150px;
     grid-template-rows: 1fr;
-    background-color: rgba(0, 0, 0, 0.116);
     color: white;
     border-radius: 4px;
     justify-content: center;
@@ -121,25 +120,31 @@ body {
       align-content: center;
       grid-template-areas:
         "textarea textarea"
-        "button button1";
+        ". button";
       textarea {
         grid-area: textarea;
         overflow: scroll;
         @include scrollbar;
       }
-      button:last-child {
-        grid-area: button1;
+      button {
+        grid-area: button;
       }
     }
-
     aside {
       display: grid;
       grid-template-rows: 80px 80px auto auto;
       grid-auto-columns: 1fr;
+      justify-content: center;
       section {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 40px 1fr;
         list-style-type: none;
+        text-align: center;
+        border: solid 1px rgba(128, 128, 128, 0.412);
         h4 {
-          background-color: rgba(128, 128, 128, 0.623);
+          background-color: rgba(128, 128, 128, 0.412);
+          padding-top: 5px;
         }
         ul {
           padding: 5px 0;
@@ -147,19 +152,21 @@ body {
           @include scrollbar;
           p {
             display: inline;
-            padding: 3px ;
+            padding: 3px;
           }
           li {
             display: inline;
           }
         }
-        .topwords{
-          li{
+        .topwords {
+          li {
             display: grid;
-            grid-template-columns: 1fr 20px;
+            grid-template-columns: 1fr 40px;
             grid-template-rows: 1fr;
-
-            &:nth-child(odd){
+            p {
+              word-break: break-all;
+            }
+            &:nth-child(odd) {
               background-color: rgba(9, 43, 87, 0.548);
             }
           }

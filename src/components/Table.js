@@ -2,49 +2,57 @@ import { useState, useEffect } from "react";
 
 const Table = ({
   excludedWords,
+  setExcludedWords,
   wordFoundNo,
-  wordToFind,
   contents,
   setContents,
 }) => {
   const [topWords, setTopWords] = useState({});
   const [paraLength, setParaLength] = useState(0);
 
+  const calculateLength = () => {
+    let n = contents.split(" ").filter((word) => !excludedWords.includes(word));
+    let rmChar = n.join(" ").replace(/[^A-Za-z]\s+/g, " ");
+    let newWord = rmChar.trim().split(" ");
+    setParaLength(newWord.length);
+  };
+
+  const assessText = () => {
+    const popular = contents.split(" ").reduce((all, curr) => {
+      let item = curr
+        .replace(/[^a-zA-Z]/gi, "")
+        .trim()
+        .toLowerCase();
+
+      if (excludedWords.includes(item) || item.length === 0) {
+        all[item] = 0;
+      } else if (all[item]) {
+        all[item]++;
+      } else {
+        all[item] = 1;
+      }
+      console.log(all);
+      return all;
+    }, {});
+
+    const sortedArr = Object.entries(popular).sort((a, b) => b[1] - a[1]);
+    setTopWords(sortedArr.slice(0, 5));
+  };
+
   useEffect(() => {
-    const calculateLength = () => {
-      let n = contents
-        .split(" ")
-        .filter((word) => !excludedWords.includes(word));
-      let rmChar = n.join(" ").replace(/[^A-Za-z]\s+/g, " ");
-      let newWord = rmChar.trim().split(" ");
-      setParaLength(newWord.length);
-    };
-    const assessText = () => {
-      const popular = contents.split(" ").reduce((all, curr) => {
-        let item = curr
-          .replace(/[^a-zA-Z]/gi, "")
-          .trim()
-          .toLowerCase();
-
-        if (excludedWords.includes(item)) {
-          all[item] = 0;
-        } else if (all[item]) {
-          all[item]++;
-        } else {
-          all[item] = 1;
-        }
-        return all;
-      }, {});
-
-      const sortedArr = Object.entries(popular).sort((a, b) => b[1] - a[1]);
-      setTopWords(sortedArr.slice(0, 5));
-    };
-
     if (contents.length > 15) {
       calculateLength();
       assessText();
     }
   }, [contents, excludedWords]);
+
+  const clearData = (e) => {
+    e.preventDefault();
+    setContents("");
+    setExcludedWords([]);
+    setParaLength(0);
+    setTopWords({});
+  };
 
   return (
     <div className="table">
@@ -54,7 +62,7 @@ const Table = ({
           value={contents}
           onChange={(e) => setContents(e.target.value)}
         />
-        <button onClick={() => setContents("")}>Clear</button>
+        <button onClick={(e) => clearData(e)}>Clear</button>
       </form>
       <aside>
         <section>
@@ -62,10 +70,10 @@ const Table = ({
           <p>{paraLength} words</p>
         </section>
         <section>
-          <h4>{`Found word: ${wordToFind}`}</h4>
+          <h4>{`Found: ${wordFoundNo.word}`}</h4>
           {contents !== "" && (
             <p>
-              {wordFoundNo} time{wordFoundNo !== 1 ? "s" : ""}
+              {wordFoundNo.num} time{wordFoundNo.num !== 1 ? "s" : ""}
             </p>
           )}
         </section>
