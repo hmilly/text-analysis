@@ -58,7 +58,7 @@ const App = () => {
         <p className="error">{err}</p>
       </header>
       <form className="inputs">
-        {contents.length >= 15 && (
+        {contents.length >= 15 ? (
           <Input
             placehold="Exclude word.."
             val={wordToExclude}
@@ -66,8 +66,8 @@ const App = () => {
             clickFn={addToExclusions}
             btnName="Remove"
           />
-        )}
-        {contents.length >= 15 && (
+        ):<></>}
+        {contents.length >= 15 ? (
           <Input
             placehold="Find word.."
             val={wordToFind}
@@ -75,7 +75,7 @@ const App = () => {
             clickFn={searchForWord}
             btnName="Find"
           />
-        )}
+        ): <></>}
       </form>
       <Table
         excludedWords={excludedWords}
